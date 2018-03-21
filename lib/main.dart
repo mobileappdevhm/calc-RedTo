@@ -118,7 +118,7 @@ class CalculatorState extends State<Calculator> {
 
   void _deleteLastClick() {
     setState(() {
-      if (_input.length > 0 && _inputTypes.length > 0) {
+      if (_input.isNotEmpty && _inputTypes.isNotEmpty) {
         _input = _input.substring(0, _input.length - 1);
         _inputTypes.removeLast();
       } else {
@@ -129,17 +129,13 @@ class CalculatorState extends State<Calculator> {
 
   void _numberClick(int number) {
     setState(() {
-      if (_inputTypes.length > 0) {
-        if (_inputTypes[_inputTypes.length - 1] != "number") {
-          if (number != 0) {
-            _input += number.toString();
-            _inputTypes.add("number");
-          }
-        } else {
-          _input += number.toString();
-          _inputTypes.add("number");
-        }
-      } else {
+      if (_checkInputType("result")) {
+        _resetClick();
+      }
+
+      if ((_inputTypes.isEmpty && number != 0) ||
+          _checkInputType("number") ||
+          (_checkInputType("symbol") && number != 0)) {
         _input += number.toString();
         _inputTypes.add("number");
       }
@@ -147,10 +143,15 @@ class CalculatorState extends State<Calculator> {
   }
 
   void _calculateResult() {
+    if (_checkInputType("symbol")) {
+      _deleteLastClick();
+    }
     String toResolve = _input.replaceAll(divideSymbol, "~/");
     toResolve = toResolve.replaceAll(multiplySymbol, "*");
     setState(() {
+      _resetClick();
       _input = calculate(toResolve);
+      _inputTypes.add("number result");
     });
   }
 
@@ -168,12 +169,6 @@ class CalculatorState extends State<Calculator> {
       _calculateResult();
     } else if (symbol == resetSymbol) {
       _resetClick();
-    } else if ((_checkInputType("") || _checkInputType("dot")) &&
-        symbol == subSymbol) {
-      setState(() {
-        _input += symbol;
-        _inputTypes.add("negative");
-      });
     } else if (_checkInputType("number")) {
       setState(() {
         _input += symbol;
@@ -183,11 +178,7 @@ class CalculatorState extends State<Calculator> {
       setState(() {
         _input = _input.substring(0, _input.length - 1);
         _input += symbol;
-        if (symbol == multiplySymbol || symbol == divideSymbol) {
-          _inputTypes.add("symbol dot");
-        } else {
-          _inputTypes.add("symbol");
-        }
+        _inputTypes.add("symbol");
       });
     }
   }
