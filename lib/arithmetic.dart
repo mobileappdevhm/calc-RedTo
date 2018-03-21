@@ -1,46 +1,55 @@
 import 'package:parsers/parsers.dart';
 
-// Same example as example.dart, with the additional use of chainl1 which
-// helps handling infix operators with the same precedence.
-
-class Arith {
+class Arithmetic {
+  //digits are parsed as int
   digits2int(digits) => int.parse(digits.join());
 
+  //a lexeme are chars till the next space
   lexeme(parser) => parser < spaces;
 
+  //a token is a lexeme of a string
   token(str) => lexeme(string(str));
 
-  parens(parser) => parser.between(token('('), token(')'));
-
+  //the input is a expression (parse till 'end of file')
   get start => expr() < eof;
 
-  get comma => token(',');
+  //mult token is \u00D7
+  get mult => token('\u00D7');
 
-  get times => token('*');
+  //div token is \u00F7
+  get div => token('\u00F7');
 
-  get div => token('~/');
+  //add token is +
+  get add => token('+');
 
-  get plus => token('+');
+  //sub token is -
+  get sub => token('-');
 
-  get minus => token('-');
-
+  //number has many digits
   get number => lexeme(digit.many1) ^ digits2int;
 
-  expr() => rec(term).chainl1(addop);
+  //expression is 'above' term, so term would be replaced first then addop
+  expr() => rec(term).chainl1(lineOp);
 
-  term() => rec(atom).chainl1(mulop);
+  //term is 'above' number, so number would be replaced first then multop
+  term() => rec(atom).chainl1(dotOp);
 
-  atom() => number | parens(rec(expr));
+  //number is the lowest level, start here with replacing
+  atom() => number;
 
-  get addop =>
-      (plus > success((x, y) => x + y)) | (minus > success((x, y) => x - y));
+  //line operators are two numbers combined with + or -
+  get lineOp =>
+      (add > success((x, y) => x + y)) | (sub > success((x, y) => x - y));
 
-  get mulop =>
-      (times > success((x, y) => x * y)) | (div > success((x, y) => x ~/ y));
+  //dot operators are two numbers combined with * or ~/
+  get dotOp =>
+      (mult > success((x, y) => x * y)) | (div > success((x, y) => x ~/ y));
 }
 
 String calculate(final String toResolve) {
-  //print(new Arith().start.parse("0,1 * 4"));
+  //result of empty input should be 0
+  if (toResolve.isEmpty) return "0";
   print(toResolve);
-  return new Arith().start.parse(toResolve).toString();
+  //parse the input and return the result as string
+  return new Arithmetic().start.parse(toResolve).toString();
 }
