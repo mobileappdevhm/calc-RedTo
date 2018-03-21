@@ -1,8 +1,8 @@
 # calculator
 
-A new Flutter project.
+A Calculator build with Google's [Flutter](https://flutter.io/).
 
-## Getting Started
+## Used packages
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+- [Staggered Grid View](https://github.com/letsar/flutter_staggered_grid_view) (Nice and easy way to get a beautiful grid)
+- [Parsers](https://github.com/polux/parsers) (calculation -> easy)
