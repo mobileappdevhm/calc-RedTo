@@ -146,8 +146,7 @@ class CalculatorState extends State<Calculator> {
     if (_checkInputType("symbol")) {
       _deleteLastClick();
     }
-    String toResolve = _input.replaceAll(divideSymbol, "~/");
-    toResolve = toResolve.replaceAll(multiplySymbol, "*");
+    String toResolve = _input;
     setState(() {
       _resetClick();
       _input = calculate(toResolve);
