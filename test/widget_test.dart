@@ -1,14 +1,14 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:calculator/views/calculator/calculator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-import 'package:calculator/main.dart';
-
-Finder getResultAsFinder(String resultText){
+Finder getResultAsFinder(String resultText) {
   return find.widgetWithText(InkWell, resultText);
 }
 
 void main() {
-  final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
+  final TestWidgetsFlutterBinding binding =
+      TestWidgetsFlutterBinding.ensureInitialized();
   if (binding is LiveTestWidgetsFlutterBinding)
     binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
   final Finder button1 = find.widgetWithText(InkWell, '1');
@@ -29,152 +29,12 @@ void main() {
   final Finder buttonSub = find.widgetWithText(InkWell, '-');
   final Finder buttonResult = find.widgetWithText(InkWell, '=');
 
-
-  testWidgets('test buttonReset', (WidgetTester tester) async {
+  testWidgets('Numbers and symbols are displayed test',
+      (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(buttonReset);
-    await tester.pump();
-
-    expect(getResultAsFinder(""), findsWidgets);
-  });
-  testWidgets('test buttonDiv', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(buttonDiv);
-    await tester.pump();
-
-    expect(getResultAsFinder(""), findsWidgets);
-  });
-  testWidgets('test buttonMult', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(buttonMult);
-    await tester.pump();
-
-    expect(getResultAsFinder(""), findsWidgets);
-  });
-  testWidgets('test buttonDelete', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(buttonDelete);
-    await tester.pump();
-
-    expect(getResultAsFinder(""), findsWidgets);
-  });
-
-  testWidgets('test button1', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(button1);
-    await tester.pump();
-
-    expect(getResultAsFinder("1"), findsWidgets);
-  });
-
-  testWidgets('test button2', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(button2);
-    await tester.pump();
-
-    expect(getResultAsFinder("2"), findsWidgets);
-  });
-  testWidgets('test button3', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(button3);
-    await tester.pump();
-
-    expect(getResultAsFinder("3"), findsWidgets);
-  });
-  testWidgets('test buttonSub', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(buttonSub);
-    await tester.pump();
-
-    expect(getResultAsFinder(""), findsWidgets);
-  });
-
-  testWidgets('test button4', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(button4);
-    await tester.pump();
-
-    expect(getResultAsFinder("4"), findsWidgets);
-  });
-  testWidgets('test button5', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(button5);
-    await tester.pump();
-
-    expect(getResultAsFinder("5"), findsWidgets);
-  });
-  testWidgets('test button6', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(button6);
-    await tester.pump();
-
-    expect(getResultAsFinder("6"), findsWidgets);
-  });
-  testWidgets('test buttonAdd', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(buttonAdd);
-    await tester.pump();
-
-    expect(getResultAsFinder(""), findsWidgets);
-  });
-  testWidgets('test button7', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(button7);
-    await tester.pump();
-
-    expect(getResultAsFinder("7"), findsWidgets);
-  });
-  testWidgets('test button8', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(button8);
-    await tester.pump();
-
-    expect(getResultAsFinder("8"), findsWidgets);
-  });
-  testWidgets('test button9', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(button9);
-    await tester.pump();
-
-    expect(getResultAsFinder("9"), findsWidgets);
-  });
-  testWidgets('test buttonResult', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(buttonResult);
-    await tester.pump();
-
-    expect(getResultAsFinder("0"), findsWidgets);
-  });
-  testWidgets('test button0', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
-    await tester.tap(button0);
-    await tester.pump();
-
-    expect(getResultAsFinder(""), findsWidgets);
-  });
-
-  testWidgets('Numbers and symbols are displayed test', (WidgetTester tester) async {
-    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
-
     // Verify that all buttons are displayed
-    //expect(button0, findsOneWidget);expect(button1, findsOneWidget);
+    expect(button0, findsOneWidget);
+    expect(button1, findsOneWidget);
     expect(button2, findsOneWidget);
     expect(button3, findsOneWidget);
     expect(button4, findsOneWidget);
@@ -190,14 +50,139 @@ void main() {
     expect(buttonAdd, findsOneWidget);
     expect(buttonSub, findsOneWidget);
     expect(buttonResult, findsOneWidget);
-
   });
 
-  // We press the "1" and the "2" buttons and check that the display
-  // reads "12".
-  testWidgets('Flutter calculator app smoke test', (WidgetTester tester) async {
+  testWidgets('test buttonReset', (WidgetTester tester) async {
     await tester.pumpWidget(new MaterialApp(home: new Calculator()));
 
+    await tester.tap(button1);
+    await tester.pump();
+    expect(getResultAsFinder("1"), findsWidgets);
+
+    await tester.tap(buttonReset);
+    await tester.pump();
+    expect(getResultAsFinder(""), findsWidgets);
+  });
+  testWidgets('test buttonDiv', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(buttonDiv);
+    await tester.pump();
+    expect(getResultAsFinder(""), findsWidgets);
+  });
+  testWidgets('test buttonMult', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(buttonMult);
+    await tester.pump();
+    expect(getResultAsFinder(""), findsWidgets);
+  });
+  testWidgets('test buttonDelete', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(buttonDelete);
+    await tester.pump();
+    expect(getResultAsFinder(""), findsWidgets);
+  });
+
+  testWidgets('test button1', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button1);
+    await tester.pump();
+    expect(getResultAsFinder("1"), findsWidgets);
+  });
+
+  testWidgets('test button2', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button2);
+    await tester.pump();
+    expect(getResultAsFinder("2"), findsWidgets);
+  });
+  testWidgets('test button3', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button3);
+    await tester.pump();
+    expect(getResultAsFinder("3"), findsWidgets);
+  });
+  testWidgets('test buttonSub', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(buttonSub);
+    await tester.pump();
+    expect(getResultAsFinder(""), findsWidgets);
+  });
+
+  testWidgets('test button4', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button4);
+    await tester.pump();
+    expect(getResultAsFinder("4"), findsWidgets);
+  });
+  testWidgets('test button5', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button5);
+    await tester.pump();
+    expect(getResultAsFinder("5"), findsWidgets);
+  });
+  testWidgets('test button6', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button6);
+    await tester.pump();
+    expect(getResultAsFinder("6"), findsWidgets);
+  });
+  testWidgets('test buttonAdd', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(buttonAdd);
+    await tester.pump();
+    expect(getResultAsFinder(""), findsWidgets);
+  });
+  testWidgets('test button7', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button7);
+    await tester.pump();
+    expect(getResultAsFinder("7"), findsWidgets);
+  });
+  testWidgets('test button8', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button8);
+    await tester.pump();
+    expect(getResultAsFinder("8"), findsWidgets);
+  });
+  testWidgets('test button9', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button9);
+    await tester.pump();
+
+    expect(getResultAsFinder("9"), findsWidgets);
+  });
+  testWidgets('test buttonResult', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(buttonResult);
+    await tester.pump();
+    expect(getResultAsFinder("0"), findsWidgets);
+  });
+  testWidgets('test button0', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button0);
+    await tester.pump();
+
+    expect(getResultAsFinder(""), findsWidgets);
+  });
+
+  testWidgets('Flutter calculator app smoke test', (WidgetTester tester) async {
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
 
     expect(button1, findsOneWidget);
     expect(button2, findsOneWidget);
@@ -214,121 +199,126 @@ void main() {
     await tester.pump();
     await tester.tap(button2);
     await tester.pump();
-    await tester.pump(const Duration(seconds: 1)); // Wait until it has finished.
+    await tester
+        .pump(const Duration(seconds: 1)); // Wait until it has finished.
 
     expect(getResultAsFinder("12"), findsOneWidget);
   });
 
   testWidgets('Simple add test', (WidgetTester tester) async {
-    await tester.pumpWidget(new Main());
-    await tester.tap(find.text('5'));
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button5);
     await tester.pump();
-    await tester.tap(find.text('+'));
+    await tester.tap(buttonAdd);
     await tester.pump();
-    await tester.tap(find.text('9'));
+    await tester.tap(button9);
     await tester.pump();
-    await tester.tap(find.text('='));
+    await tester.tap(buttonResult);
     await tester.pump();
     // Verify that the right result is displayed
-    expect(find.text('14'), findsOneWidget);
+    expect(getResultAsFinder('14'), findsOneWidget);
   });
 
   testWidgets('Simple sub test', (WidgetTester tester) async {
-    await tester.pumpWidget(new Calculator());
-    await tester.tap(find.text('5'));
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button5);
     await tester.pump();
     await tester.pump();
-    await tester.tap(find.text('-'));
+    await tester.tap(buttonSub);
     await tester.pump();
-    await tester.tap(find.text('1'));
+    await tester.tap(button1);
     await tester.pump();
-    await tester.tap(find.text('='));
+    await tester.tap(buttonResult);
     await tester.pump();
     // Verify that the right result is displayed
-    expect(find.text('54'), findsOneWidget);
+    expect(getResultAsFinder('4'), findsWidgets);
   });
 
   testWidgets('Simple multiply test', (WidgetTester tester) async {
-    await tester.pumpWidget(new Calculator());
-    await tester.tap(find.text('2'));
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button2);
     await tester.pump();
-    await tester.tap(find.text('*'));
+    await tester.tap(buttonMult);
     await tester.pump();
-    await tester.tap(find.text('8'));
+    await tester.tap(button8);
     await tester.pump();
-    await tester.tap(find.text('='));
+    await tester.tap(buttonResult);
     await tester.pump();
     // Verify that the right result is displayed
-    expect(find.text('16'), findsOneWidget);
+    expect(getResultAsFinder('16'), findsOneWidget);
   });
 
   testWidgets('Simple divide test', (WidgetTester tester) async {
-    await tester.pumpWidget(new Calculator());
-    await tester.tap(find.text('7'));
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button7);
     await tester.pump();
-    await tester.tap(find.text('2'));
+    await tester.tap(button2);
     await tester.pump();
-    await tester.tap(find.text('/'));
+    await tester.tap(buttonDiv);
     await tester.pump();
-    await tester.tap(find.text('6'));
+    await tester.tap(button6);
     await tester.pump();
-    await tester.tap(find.text('='));
+    await tester.tap(buttonResult);
     await tester.pump();
     // Verify that the right result is displayed
-    expect(find.text('12'), findsOneWidget);
+    expect(getResultAsFinder('12'), findsOneWidget);
   });
 
   testWidgets('Long divide test', (WidgetTester tester) async {
-    await tester.pumpWidget(new Calculator());
-    await tester.tap(find.text('1'));
+    await tester.pumpWidget(new MaterialApp(home: new Calculator()));
+
+    await tester.tap(button1);
     await tester.pump();
-    await tester.tap(find.text('2'));
+    await tester.tap(button2);
     await tester.pump();
-    await tester.tap(find.text('3'));
+    await tester.tap(button3);
     await tester.pump();
-    await tester.tap(find.text('4'));
+    await tester.tap(button4);
     await tester.pump();
-    await tester.tap(find.text('5'));
+    await tester.tap(button5);
     await tester.pump();
-    await tester.tap(find.text('6'));
+    await tester.tap(button6);
     await tester.pump();
-    await tester.tap(find.text('7'));
+    await tester.tap(button7);
     await tester.pump();
-    await tester.tap(find.text('8'));
+    await tester.tap(button8);
     await tester.pump();
-    await tester.tap(find.text('9'));
+    await tester.tap(button9);
     await tester.pump();
-    await tester.tap(find.text('0'));
+    await tester.tap(button0);
     await tester.pump();
-    await tester.tap(find.text('/'));
+    await tester.tap(buttonDiv);
     await tester.pump();
-    await tester.tap(find.text('1'));
+    await tester.tap(button1);
     await tester.pump();
-    await tester.tap(find.text('2'));
+    await tester.tap(button2);
     await tester.pump();
-    await tester.tap(find.text('3'));
+    await tester.tap(button3);
     await tester.pump();
-    await tester.tap(find.text('4'));
+    await tester.tap(button4);
     await tester.pump();
-    await tester.tap(find.text('5'));
+    await tester.tap(button5);
     await tester.pump();
-    await tester.tap(find.text('6'));
+    await tester.tap(button6);
     await tester.pump();
-    await tester.tap(find.text('7'));
+    await tester.tap(button7);
     await tester.pump();
-    await tester.tap(find.text('8'));
+    await tester.tap(button8);
     await tester.pump();
-    await tester.tap(find.text('9'));
+    await tester.tap(button9);
     await tester.pump();
-    await tester.tap(find.text('0'));
-    await tester.pump();
-    await tester.tap(find.text('='));
+    await tester.tap(buttonResult);
     await tester.pump();
     // Verify that the right result is displayed
-    expect(find.text('1'), findsWidgets);
+    expect(getResultAsFinder('10'), findsWidgets);
   });
 
   //TODO test calculator with large numbers
   //TODO test calculator with longer exercises
   //TODO test calculator with negative numbers
+  //TODO 5-+/*6=30
 }
