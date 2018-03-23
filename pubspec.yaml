@@ -6,9 +6,9 @@ dependencies:
     sdk: flutter
 
   # these external packages are used inside the project
-  flutter_launcher_icons: ^0.2.0 # add possibility to use a different launcher icon
-  math_expressions: ^0.3.0 # good expressions for calculation
-  flutter_staggered_grid_view: ^0.1.2 # good to get grids of a different size
+  flutter_launcher_icons: "^0.2.0" # add possibility to use a different launcher icon
+  math_expressions: "^0.3.0" # good expressions for calculation
+  flutter_staggered_grid_view: "^0.1.2" # good to get grids of a different size
 
 dev_dependencies:
   flutter_test:
