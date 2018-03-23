@@ -19,7 +19,8 @@ const List<StaggeredTile> staggeredTiles = const <StaggeredTile>[
   const StaggeredTile.count(1, 1),
   const StaggeredTile.count(1, 1),
   const StaggeredTile.count(1, 2),
-  const StaggeredTile.count(3, 1),
+  const StaggeredTile.count(2, 1),
+  const StaggeredTile.count(1, 1),
 ];
 
 //constants of all used symbols
@@ -30,10 +31,13 @@ const String symbolMultiply = "\u00D7";
 const String symbolSub = "-";
 const String symbolAdd = "+";
 const String symbolResult = "=";
+const String symbolPoint = ".";
 
 //constants of all used input types
-const String inputTypNumber = "number";
-const String inputTypSymbol = "symbol";
-const String inputTypNegative = "negative";
-const String inputTypResult = "result";
-const String inputTypNumberResult = "number result";
+const String inputTypeNumber = "number";
+const String inputTypeSymbol = "symbol";
+const String inputTypeNegative = "negative";
+const String inputTypeResult = "result";
+const String inputTypeNumberResult = inputTypeNumber + " " + inputTypeResult;
+const String inputTypeNumberZero = inputTypeNumber + " zero";
+const String inputTypePointNumber = "point " + inputTypeNumber;

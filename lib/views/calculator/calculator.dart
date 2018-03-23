@@ -1,4 +1,4 @@
-import 'package:calculator/logic/arithmetic.dart';
+import 'package:calculator/logic/math.dart';
 import 'package:calculator/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -85,6 +85,7 @@ class _CalculatorState extends State<Calculator> {
                 _createNumberCard(9),
                 _createSymbolCard(symbolResult),
                 _createNumberCard(0),
+                _createSymbolCard(symbolPoint),
               ],
               mainAxisSpacing: 0.0,
               crossAxisSpacing: 4.0,
@@ -115,27 +116,37 @@ class _CalculatorState extends State<Calculator> {
 
   //function which is fired on 'number' button click
   _numberClick(int number) {
-    setState(() {
-      if (_checkInputType(inputTypResult)) {
-        _resetClick();
-      }
+    if (_checkInputType(inputTypeResult)) {
+      _resetClick();
+    }
+    if (_checkInputType(inputTypeNumberZero)) {
+      _deleteLastClick();
+    }
 
-      if ((_inputTypes.isEmpty && number != 0) ||
-          _checkInputType(inputTypNumber) ||
-          (_checkInputType(inputTypSymbol) && number != 0)) {
-        _calculatorString += number.toString();
-        _inputTypes.add(inputTypNumber);
+    String inputType = "";
+    if(_checkInputType(inputTypePointNumber)){
+      inputType = inputTypePointNumber;
+    } else {
+      if (number > 0) {
+        inputType = inputTypeNumber;
+      } else {
+        inputType = inputTypeNumberZero;
       }
+    }
+
+    setState(() {
+      _calculatorString += number.toString();
+      _inputTypes.add(inputType);
     });
   }
 
   //function which is fired on 'result' button click
   _resultClick() {
     //if last input type was not number, delete the input which is not needed
-    if (_checkInputType(inputTypSymbol)) {
+    if (_checkInputType(inputTypeSymbol)) {
       //delete last input if input type is symbol
       _deleteLastClick();
-    } else if (_checkInputType(inputTypNegative)) {
+    } else if (_checkInputType(inputTypeNegative)) {
       //delete the last two inputs if input type is negative
       _deleteLastClick(2);
     }
@@ -146,8 +157,9 @@ class _CalculatorState extends State<Calculator> {
       //clear the history
       _resetClick();
       //calculate the result
-      _calculatorString = calculate(toResolve);
-      _inputTypes.add(inputTypNumberResult);
+      //_calculatorString = calculate(toResolve);
+      _calculatorString = Math.getResult(toResolve);
+      _inputTypes.add(inputTypeNumberResult);
     });
   }
 
@@ -161,17 +173,29 @@ class _CalculatorState extends State<Calculator> {
       _resultClick();
     } else
     //depending on input type the actions will be chosen
-    if (_checkInputType(inputTypNumber)) {
+
+
+    if(symbol == symbolPoint && _checkInputType(inputTypePointNumber)){
+      //do nothing
+    } else if (_checkInputType(inputTypeNumber)) {
       setState(() {
         _calculatorString += symbol;
-        _inputTypes.add(inputTypSymbol);
+        if(symbol == symbolPoint){
+          _inputTypes.add(inputTypePointNumber);
+        } else {
+          _inputTypes.add(inputTypeSymbol);
+        }
       });
-    } else if (_checkInputType(inputTypSymbol)) {
+    } else if (_checkInputType(inputTypeSymbol)) {
       setState(() {
         _calculatorString =
             _calculatorString.substring(0, _calculatorString.length - 1);
         _calculatorString += symbol;
-        _inputTypes.add(inputTypSymbol);
+        if(symbol == symbolPoint){
+          _inputTypes.add(inputTypePointNumber);
+        } else {
+          _inputTypes.add(inputTypeSymbol);
+        }
       });
     }
   }
