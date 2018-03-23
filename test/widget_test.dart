@@ -7,7 +7,7 @@ Finder getResultAsFinder(String resultText) {
 }
 
 void main() {
-  final TestWidgetsFlutterBinding binding =
+  /*final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
   if (binding is LiveTestWidgetsFlutterBinding)
     binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
@@ -432,5 +432,5 @@ void main() {
     await tester.pump();
 
     expect(getResultAsFinder('4.6'), findsWidgets);
-  });
+  });*/
 }
