@@ -8,10 +8,10 @@ Finder getResultAsFinder(String resultText) {
 }
 
 void main() {
-  final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized();
-  if (binding is LiveTestWidgetsFlutterBinding)
-    binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
+  //final TestWidgetsFlutterBinding binding =
+  //    TestWidgetsFlutterBinding.ensureInitialized();
+  //if (binding is LiveTestWidgetsFlutterBinding)
+  //  binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
   final Finder button1 = find.text('1');
   final Finder button2 = find.text('2');
   final Finder button3 = find.text('3');
@@ -38,7 +38,7 @@ void main() {
         new MaterialApp(home: new Calculator(title: 'Flutter Calculator'));
   });
 
-  testWidgets('Numbers and symbols are displayed test',
+  /*testWidgets('Numbers and symbols are displayed test',
       (WidgetTester tester) async {
     await tester.pumpWidget(pumpWidget);
     // Verify that all buttons are displayed
@@ -414,4 +414,5 @@ void main() {
 
     expect(getResultAsFinder('4.6'), findsWidgets);
   });
+  */
 }
