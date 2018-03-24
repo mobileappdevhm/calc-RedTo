@@ -1,39 +1,41 @@
+import 'package:calculator/util/constants.dart';
 import 'package:calculator/views/calculator/calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:calculator/util/constants.dart';
+
 Finder getResultAsFinder(String resultText) {
-  return find.widgetWithText(InkWell, resultText);
+  return find.text(resultText);
 }
 
 void main() {
-  /*final TestWidgetsFlutterBinding binding =
+  final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
   if (binding is LiveTestWidgetsFlutterBinding)
     binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
-  final Finder button1 = find.widgetWithText(InkWell,'1');
-  final Finder button2 = find.widgetWithText(InkWell, '2');
-  final Finder button3 = find.widgetWithText(InkWell, '3');
-  final Finder button4 = find.widgetWithText(InkWell, '4');
-  final Finder button5 = find.widgetWithText(InkWell, '5');
-  final Finder button6 = find.widgetWithText(InkWell, '6');
-  final Finder button7 = find.widgetWithText(InkWell, '7');
-  final Finder button8 = find.widgetWithText(InkWell, '8');
-  final Finder button9 = find.widgetWithText(InkWell, '9');
-  final Finder button0 = find.widgetWithText(InkWell, '0');
-  final Finder buttonReset = find.widgetWithText(InkWell, symbolReset);
-  final Finder buttonMult = find.widgetWithText(InkWell, symbolMultiply);
-  final Finder buttonDiv = find.widgetWithText(InkWell, symbolDivide);
-  final Finder buttonDelete = find.widgetWithText(InkWell, symbolDelete);
-  final Finder buttonAdd = find.widgetWithText(InkWell, symbolAdd);
-  final Finder buttonSub = find.widgetWithText(InkWell, symbolSub);
-  final Finder buttonResult = find.widgetWithText(InkWell, symbolResult);
-  final Finder buttonPoint = find.widgetWithText(InkWell, symbolPoint);
+  final Finder button1 = find.text('1');
+  final Finder button2 = find.text('2');
+  final Finder button3 = find.text('3');
+  final Finder button4 = find.text('4');
+  final Finder button5 = find.text('5');
+  final Finder button6 = find.text('6');
+  final Finder button7 = find.text('7');
+  final Finder button8 = find.text('8');
+  final Finder button9 = find.text('9');
+  final Finder button0 = find.text('0');
+  final Finder buttonReset = find.text(symbolReset);
+  final Finder buttonMult = find.text(symbolMultiply);
+  final Finder buttonDiv = find.text(symbolDivide);
+  final Finder buttonDelete = find.text(symbolDelete);
+  final Finder buttonAdd = find.text(symbolAdd);
+  final Finder buttonSub = find.text(symbolSub);
+  final Finder buttonResult = find.text(symbolResult);
+  final Finder buttonPoint = find.text(symbolPoint);
 
   Widget pumpWidget;
 
-  setUp((){
-    pumpWidget = new MaterialApp(home: new Calculator(title: 'Flutter Calculator'));
+  setUp(() {
+    pumpWidget =
+        new MaterialApp(home: new Calculator(title: 'Flutter Calculator'));
   });
 
   testWidgets('Numbers and symbols are displayed test',
@@ -289,14 +291,6 @@ void main() {
     await tester.pump();
     await tester.tap(button5);
     await tester.pump();
-    await tester.tap(button6);
-    await tester.pump();
-    await tester.tap(button7);
-    await tester.pump();
-    await tester.tap(button8);
-    await tester.pump();
-    await tester.tap(button9);
-    await tester.pump();
     await tester.tap(button0);
     await tester.pump();
     await tester.tap(buttonDiv);
@@ -310,14 +304,6 @@ void main() {
     await tester.tap(button4);
     await tester.pump();
     await tester.tap(button5);
-    await tester.pump();
-    await tester.tap(button6);
-    await tester.pump();
-    await tester.tap(button7);
-    await tester.pump();
-    await tester.tap(button8);
-    await tester.pump();
-    await tester.tap(button9);
     await tester.pump();
     await tester.tap(buttonResult);
     await tester.pump();
@@ -356,9 +342,7 @@ void main() {
     await tester.pump();
 
     expect(getResultAsFinder('1000000'), findsOneWidget);
-
   });
-
 
   testWidgets('symbol change test', (WidgetTester tester) async {
     await tester.pumpWidget(pumpWidget);
@@ -379,9 +363,7 @@ void main() {
     await tester.pump();
 
     expect(getResultAsFinder('30'), findsOneWidget);
-
   });
-
 
   testWidgets('long calculation test', (WidgetTester tester) async {
     await tester.pumpWidget(pumpWidget);
@@ -408,7 +390,6 @@ void main() {
     await tester.pump();
 
     expect(getResultAsFinder('0'), findsWidgets);
-
   });
 
   testWidgets('point calculation test', (WidgetTester tester) async {
@@ -432,5 +413,5 @@ void main() {
     await tester.pump();
 
     expect(getResultAsFinder('4.6'), findsWidgets);
-  });*/
+  });
 }
