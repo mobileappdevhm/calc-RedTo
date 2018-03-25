@@ -62,7 +62,7 @@ void main() {
     expect(buttonPoint, findsOneWidget);
   });
 
-  /*testWidgets('test buttonReset', (WidgetTester tester) async {
+  testWidgets('test buttonReset', (WidgetTester tester) async {
     await tester.pumpWidget(pumpWidget);
 
     await tester.tap(button1);
@@ -414,5 +414,4 @@ void main() {
 
     expect(getResultAsFinder('4.6'), findsWidgets);
   });
-  */
 }
