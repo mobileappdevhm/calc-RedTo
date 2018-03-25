@@ -1,30 +1,11 @@
-#os:
-#  - linux
-#sudo: false
-#addons:
-#  apt:
-#    # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
-#    sources:
-#      - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
-#    packages:
-#      - libstdc++6
-#      - fonts-droid
-#before_script:
-#  - git clone https://github.com/flutter/flutter.git
-#  - ./flutter/bin/flutter doctor
-#script:
-#  - ./flutter/bin/flutter test
-#cache:
-#  directories:
-#    - $HOME/.pub-cache
+
 
 # https://github.com/flutter/plugins/blob/master/.travis.yml
 matrix:
   include:
-    # Job 1) Run analyzer
-    - os: linux
-      env:
-        - SHARD=Analyze
+    # Job 1) Run tests
+      - os:
+        - linux
       sudo: false
       addons:
         apt:
@@ -38,77 +19,50 @@ matrix:
         - git clone https://github.com/flutter/flutter.git
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter doctor
-        - pub global activate flutter_plugin_tools
       script:
-        - ./script/plugin_tools.sh analyze
-    # Job 2) Check format and run tests
-    - os: linux
-      env:
-        - SHARD=Format+Test
-      jdk: oraclejdk8
-      sudo: false
-      addons:
-        apt:
-          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
-          sources:
-            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
-            - llvm-toolchain-precise # for clang-format-5.0
-          packages:
+        - flutter test
+      cache:
+        directories:
+          - $HOME/.pub-cache
+    # Job 2) Build example APK
+      - os: linux
+        language: android
+        licenses:
+        - android-sdk-preview-license-.+
+        - android-sdk-license-.+
+        - google-gdk-license-.+
+        android:
+          components:
+          - tools
+          - platform-tools
+          - build-tools-27.0.3
+          - android-26
+          - sys-img-armeabi-v7a-google_apis-26
+          - extra-android-m2repository
+          - extra-google-m2repository
+          - extra-google-android-support
+        jdk: oraclejdk8
+        sudo: true
+        addons:
+          apt:
+            sources:
+            - ubuntu-toolchain-r-test
+            packages:
             - libstdc++6
             - fonts-droid
-            - clang-format-5.0
-      before_script:
-        - git clone https://github.com/flutter/flutter.git
-        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-        - flutter doctor
-        - pub global activate flutter_plugin_tools
-      script:
-        - ./script/plugin_tools.sh format --travis --clang-format=clang-format-5.0
-        - ./script/plugin_tools.sh test
-    # Job 3) Build example APKs
-    - os: linux
-      env:
-        - SHARD=Build-example-APKs
-      jdk: oraclejdk8
-      sudo: false
-      addons:
-        apt:
-          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
-          sources:
-            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
-          packages:
-            - lib32stdc++6 # https://github.com/flutter/flutter/issues/6207
-            - libstdc++6
-            - fonts-droid
-      before_script:
-        - wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip
-        - mkdir android-sdk
-        - unzip -qq sdk-tools-linux-3859397.zip -d android-sdk
-        - export ANDROID_HOME=`pwd`/android-sdk
-        - export PATH=`pwd`/android-sdk/tools/bin:$PATH
-        - mkdir -p /home/travis/.android # silence sdkmanager warning
-        - echo 'count=0' > /home/travis/.android/repositories.cfg # silence sdkmanager warning
-        # suppressing output of sdkmanager to keep log under 4MB (travis limit)
-        - echo y | sdkmanager "tools" >/dev/null
-        - echo y | sdkmanager "platform-tools" >/dev/null
-        - echo y | sdkmanager "build-tools;26.0.3" >/dev/null
-        - echo y | sdkmanager "platforms;android-26" >/dev/null
-        - echo y | sdkmanager "extras;android;m2repository" >/dev/null
-        - echo y | sdkmanager "extras;google;m2repository" >/dev/null
-        - echo y | sdkmanager "patcher;v4" >/dev/null
-        - sdkmanager --list
-        - wget http://services.gradle.org/distributions/gradle-4.1-bin.zip
-        - unzip -qq gradle-4.1-bin.zip
-        - export GRADLE_HOME=$PWD/gradle-4.1
+        before_install:
+        - yes | sdkmanager "platforms;android-27"
+        before_script:
+        - wget http://services.gradle.org/distributions/gradle-4.6-bin.zip
+        - unzip -qq gradle-4.6-bin.zip
+        - export GRADLE_HOME=$PWD/gradle-4.6
         - export PATH=$GRADLE_HOME/bin:$PATH
-        - gradle -v
         - git clone https://github.com/flutter/flutter.git
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter doctor
-        - pub global activate flutter_plugin_tools
-      script:
-        - ./script/plugin_tools.sh build-examples --apk
-    # Job 4) Build example IPAs
+        script:
+        - flutter -v build apk
+    # Job 3) Build IPA
     - os: osx
       env:
         - SHARD=Build-example-IPAs
@@ -125,7 +79,7 @@ matrix:
         - flutter doctor
         - pub global activate flutter_plugin_tools
       script:
-        - ./script/plugin_tools.sh build-examples --ipa
+        - flutter -v build ios
 
 cache:
   directories:
