@@ -38,7 +38,7 @@ void main() {
         new MaterialApp(home: new Calculator(title: 'Flutter Calculator'));
   });
 
-  /*testWidgets('Numbers and symbols are displayed test',
+  testWidgets('Numbers and symbols are displayed test',
       (WidgetTester tester) async {
     await tester.pumpWidget(pumpWidget);
     // Verify that all buttons are displayed
@@ -62,7 +62,7 @@ void main() {
     expect(buttonPoint, findsOneWidget);
   });
 
-  testWidgets('test buttonReset', (WidgetTester tester) async {
+  /*testWidgets('test buttonReset', (WidgetTester tester) async {
     await tester.pumpWidget(pumpWidget);
 
     await tester.tap(button1);
